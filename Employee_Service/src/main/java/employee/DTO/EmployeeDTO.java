@@ -1,7 +1,4 @@
-package employee.model;
-
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+package employee.DTO;
 
 /*🔄 Why have both?
 Aspect	                     Employee (Model)	         EmployeeDTO (DTO)
@@ -11,9 +8,7 @@ Safe to expose to client     ❌ (can leak internals)	 ✅
 Can be reused internally	 ✅	                         ✅
 Designed for	             Internal logic, storage	Communication, mapping*/
 
-@Document(collection = "employees")
-public class Employee {
-    @Id
+public class EmployeeDTO {
     private String id;
     private String name;
     private String department;
@@ -50,14 +45,5 @@ public class Employee {
     public void setSalary(Double salary) {
         this.salary = salary;
     }
-
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", department='" + department + '\'' +
-                ", salary=" + salary +
-                '}';
-    }
 }
+
