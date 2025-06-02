@@ -20,6 +20,11 @@ public class EmployeeController {
 
     private static final Logger logger = LogManager.getLogger(EmployeeController.class);
 
+    /*@GetMapping("/actuator/LB")
+    public ResponseEntity<String> healthCheck(){
+        return ResponseEntity.ok("Service is Up and Running");
+    }*/
+
     //Insert Employee
     /*@PostMapping
     public Employee createEmployee(@RequestBody Employee employee) {
@@ -47,7 +52,8 @@ public class EmployeeController {
         return repository.findAll();
     }*/
 
-    @GetMapping
+    //Get All Employee
+    @GetMapping("/allEmployees")
     public ResponseEntity<List<Employee>> getAllEmployees(){
         List<Employee> employees = repository.findAll();
         if(employees.isEmpty()){
@@ -59,16 +65,29 @@ public class EmployeeController {
         }
     }
 
+    //Get Employees Count
+    @GetMapping("/allEmployees/count")
+    public ResponseEntity<Long> getEmployeeCount() {
+        long count = repository.count();  // counts documents in the collection
+        if (count == 0) {
+            logger.warn("No employees found in the database.");
+            return ResponseEntity.status(404).body(0L);
+        } else {
+            logger.info("Total number of employees: {}", count);
+            return ResponseEntity.ok(count);
+        }
+    }
+
     //Get Single Employee
     @GetMapping("employeeId/{id}")
-    public ResponseEntity<Employee> getEmployeeById(@PathVariable String id, Employee employee) {
+    public ResponseEntity<Employee> getEmployeeById(@PathVariable String id) {
         logger.info("Get Employee by EmployeeID API called from Client with path: /employeeId/{}", id);
         return repository.findById(id)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> {
                     logger.warn("Employee with ID: {} not found", id);
-                    ResponseEntity.notFound().build();
-                    return ResponseEntity.notFound().build();
+                    ResponseEntity.status(404).build();
+                    return ResponseEntity.status(404).build();
                 });
     }
 
