@@ -57,7 +57,7 @@ public class EmployeeController {
 
     @PatchMapping("/employeeId/{id}")
     public ResponseEntity<EmployeeDTO> updateEmployee(@PathVariable String id, @RequestBody EmployeeDTO dto) {
-        logger.info("Updating employee ID: {} with data: {}", id, dto);
+        logger.info("Updated the employee ID: {} with data: {}", id, dto);
         Employee updated = service.updateEmployee(id, EmployeeMapper.toEntity(dto));
         return ResponseEntity.ok(EmployeeMapper.toDTO(updated));
     }

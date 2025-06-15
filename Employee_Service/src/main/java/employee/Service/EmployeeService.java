@@ -55,6 +55,7 @@ public class EmployeeService {
         if (updated.getName() != null) employee.setName(updated.getName());
         if (updated.getDepartment() != null) employee.setDepartment(updated.getDepartment());
         if (updated.getSalary() != null) employee.setSalary(updated.getSalary());
+        //logger.error("Employee not found with ID:{}", id);
         return repository.save(employee);
     }
 
