@@ -68,4 +68,19 @@ public class EmployeeController {
         service.deleteEmployee(id);
         return ResponseEntity.ok("Employee deleted successfully.");
     }
+
+    @GetMapping("/high-salary")
+    public ResponseEntity<List<Employee>> getEmployeesByHighSalary(
+            @RequestParam("minSalary") Double minSalary) {
+        List<Employee> employees = service.getEmployeesWithSalaryGreaterThan(minSalary);
+        logger.info("Fetching all the Employees who are greater salary :{}",minSalary+"==>"+employees);
+        return ResponseEntity.ok(employees);
+    }
+
+    @GetMapping("/name")
+    public ResponseEntity<List<Employee>> getEmployeeByName(@RequestParam("name") String name){
+       List<Employee> employees = service.getEmployeesByName(name);
+        logger.info("Fetching all the Employees based on name :{}",name+"==>"+employees);
+       return ResponseEntity.ok(employees);
+    }
 }

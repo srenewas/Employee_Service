@@ -65,4 +65,12 @@ public class EmployeeService {
         }
         repository.deleteById(id);
     }
+
+    public List<Employee> getEmployeesWithSalaryGreaterThan(Double salary) {
+        return repository.findBySalaryGreaterThan(salary);
+    }
+
+    public List<Employee> getEmployeesByName(String name){
+        return repository.findByName(name);
+    }
 }
